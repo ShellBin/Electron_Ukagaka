@@ -2,8 +2,10 @@
   "name": "electron_ukagaka",
   "version": "1.0.0",
   "description": "Make your desktop cute again",
-  "main": "main.js",
-  "dependencies": {},
+  "main": "src/main/main.js",
+  "dependencies": {
+    "electron-settings": "^4.0.2"
+  },
   "devDependencies": {
     "electron": "^11.1.1"
   },
