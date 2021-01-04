@@ -5,15 +5,23 @@ const settingPanel = require('./setting')
 
 let win = null
 let tray = null
-let settingBase = { lastTimeRun: null, onTopDisplay: false }
+let settingBase = {
+    lastTimeRun: null,
+    onTopDisplay: false,
+    windowPosition: []
+}
 
 function createWindow () {
     win = new BrowserWindow({
-        width: 300,
-        height: 100,
+        width: 400,
+        height: 400,
         frame: false,
-        maximizable: false,
-        transparent: true
+        resizable: false,
+        useContentSize: false,
+        transparent: true,
+        webPreferences: {
+            contextIsolation: true
+        }
     })
     win.loadFile(__dirname + '/../renderer/index.html').then(() => {
         win.setSkipTaskbar(true)
@@ -44,10 +52,16 @@ function applyCurrentSettings() {
     setTray()
     // Set always on top
     win.setAlwaysOnTop(settingBase.onTopDisplay)
+    // Set last Position
+    const position = settingBase.windowPosition
+    if (position.length > 1) {
+        win.setPosition(position[0], position[1], true)
+    }
 }
 
 async function saveSettings() {
     settingBase.lastTimeRun = new Date()
+    settingBase.windowPosition = win.getPosition()
     return settings.set(settingBase).then(() => {
         return 'success'
     })
@@ -76,6 +90,7 @@ function switchOnTopDisplay() {
 
 function openSettingPanel() {
     settingPanel.creat()
+    // todo 避免多次打开页面
 }
 
 app.whenReady().then(() => {

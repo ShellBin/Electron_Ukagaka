@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>设置</title>
+</head>
+<body>
+<div class="main">
+    <div class="title-bar drag-able"><p class="title">选项与设置</p></div>
+    <div class="tab-bar"><span>基本设置</span><span>模型设置</span><span>数据管理</span></div>
+
+</div>
+</body>
+<style>
+    html, body {
+        margin: 0;
+        height: 100%;
+    }
+    .drag-able {
+        -webkit-app-region: drag;
+        -webkit-user-select: none;
+    }
+    .main {
+        height: 100%;
+        background-color: #F5F6F7;
+        border-radius: 6px;
+    }
+    .title-bar {
+        display: flex;
+        border-bottom: 1px solid #c6c6c6;
+    }
+    .title {
+        font-size: 20px;
+        margin: 12px 0 12px 12px;
+    }
+    .tab-bar {
+
+    }
+</style>
+</html>
