@@ -1,10 +1,11 @@
-const { app, Menu, Tray, BrowserWindow } = require('electron')
+const { app, ipcMain, Menu, Tray, BrowserWindow } = require('electron')
 const settings = require('electron-settings')
 
 const settingPanel = require('./setting')
 
 let win = null
 let tray = null
+let winList = []
 let settingBase = {
     lastTimeRun: null,
     onTopDisplay: false,
@@ -93,7 +94,33 @@ function openSettingPanel() {
     // todo 避免多次打开页面
 }
 
+ipcMain.on('creatWindow', (event, info) => {
+    const currentWindow = BrowserWindow.getFocusedWindow()
+    if (currentWindow) {
+        let oldWin = null
+        for (const item of winList) {
+            if(item.url == info.url) {
+                oldWin = item.mwin
+            }
+        }
+    }
+})
+
+function keepSingleWindow() {
+    const status = app.requestSingleInstanceLock()
+    if (!status) {
+        app.quit()
+    } else {
+        app.on('second-instance',() => {
+            if (win != null) {
+                win.focus()
+            }
+        })
+    }
+}
+
 app.whenReady().then(() => {
+    keepSingleWindow()
     createWindow()
 })
 
