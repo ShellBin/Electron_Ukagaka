@@ -3,9 +3,8 @@ const settings = require('electron-settings')
 
 const settingPanel = require('./setting')
 
-let win = null
-let tray = null
-let winList = []
+let [win, tray] = [null, null]
+let winList = new Set
 let settingBase = {
     lastTimeRun: null,
     onTopDisplay: false,
