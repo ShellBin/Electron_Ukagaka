@@ -12,6 +12,6 @@ Make your desktop cute again
 * 具备插件扩展能力
 
 ## Status
-总完成度 < 20%
+总完成度 < 10%
 
 设计 & 编写中
